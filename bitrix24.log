@@ -1,4 +1,0 @@
-2024-11-08 17:00:00,533 - INFO - start get_candidate_data - 4
-2024-11-08 17:00:04,731 - INFO - candidate details received
-2024-11-08 17:00:04,732 - INFO - start save_candidate_to_excel
-2024-11-08 17:00:04,765 - INFO - Candidate data saved in candidate_4_20241108_1700.xlsx
