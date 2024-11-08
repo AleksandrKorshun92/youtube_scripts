@@ -1,0 +1,113 @@
+2024-11-08 15:06:23,511 - INFO - start search - парсинг сайтов Python
+2024-11-08 15:06:24,599 - INFO - start gather_video_info
+2024-11-08 15:06:24,601 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,602 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,602 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,603 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,603 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,604 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,605 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,605 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,606 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,607 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,607 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,608 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,609 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,609 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,610 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,611 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,611 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,612 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,612 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,613 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,613 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,614 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,615 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,616 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,617 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,617 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,618 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,619 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,619 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,620 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,621 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,621 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,622 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,623 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,623 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,624 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,624 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,624 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,625 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,625 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,626 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,627 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,627 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,627 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,628 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,628 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,629 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,630 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,630 - INFO - start function fetch_video_details
+2024-11-08 15:06:24,630 - INFO - start function fetch_video_details
+2024-11-08 15:06:26,898 - INFO - save_to_csv filename - youtube_videos.csv
+2024-11-08 15:06:26,900 - INFO - Video data is saved in youtube_videos.csv
+2024-11-08 15:06:26,900 - INFO - upload_to_drive in Google Drive - youtube_videos.csv
+2024-11-08 15:06:26,901 - ERROR - error when searching and writing data: [Errno 2] No such file or directory: 'project-api1192-3a9275c2750f.json'
+2024-11-08 15:09:48,161 - INFO - start search - парсинг сайтов на Python
+2024-11-08 15:09:54,038 - INFO - start gather_video_info
+2024-11-08 15:09:54,039 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,040 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,041 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,041 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,042 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,042 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,043 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,043 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,043 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,044 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,044 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,045 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,045 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,045 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,046 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,046 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,046 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,047 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,047 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,048 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,048 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,049 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,049 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,050 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,050 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,051 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,052 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,053 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,054 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,055 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,056 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,056 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,057 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,058 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,058 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,059 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,059 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,060 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,060 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,061 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,061 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,062 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,063 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,063 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,064 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,064 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,065 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,065 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,065 - INFO - start function fetch_video_details
+2024-11-08 15:09:54,066 - INFO - start function fetch_video_details
+2024-11-08 15:09:55,630 - INFO - save_to_csv filename - youtube_videos.csv
+2024-11-08 15:09:55,631 - INFO - Video data is saved in youtube_videos.csv
+2024-11-08 15:09:55,631 - INFO - upload_to_drive in Google Drive - youtube_videos.csv
+2024-11-08 15:09:55,637 - INFO - file_cache is only supported with oauth2client<4.0.0
+2024-11-08 15:09:58,875 - INFO - File is saved in Google Drive
