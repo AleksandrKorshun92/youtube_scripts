@@ -228,24 +228,38 @@ def upload_to_drive(filename: csv) -> str:
 
 
 async def main():
-    """ Основная асинхронная функция которая получает информацию о данных для поиска видео,
-    после чего вызывает функцию search_youtube, осуществляет поиск, если все успешно вызывает функцию
-    gather_video_info для получения необходиых данных о видео.
-    После чего производиться запиьс данных в функции save_to_csv в файл формата csv
+    """ The main asynchronous function that receives information about the video search data,
+    after which it calls the search_youtube function, searches if everything calls the function successfully
+    gather_video_info to get the necessary video data.
+    Afterwards, the data is written in the save_to_csv function to a .csv file
     """
     
     query = input("Введите ключевое слово для поиска: ")
-    video_data = search_youtube(query)
+    
     try:
-        if video_data:
-            video_info = await gather_video_info(video_data)
-            print(save_to_csv(video_info, filename ='youtube_videos.csv'))
-            logging.info(f'Video data is saved in youtube_videos.csv')
-            print(upload_to_drive('youtube_videos.csv'))
-            logging.info(f'File is saved in Google Drive')
-    except Exception as e:
-            logging.error(f'error when searching and writing data: {e}')
+        video_data = search_youtube(query)
         
+        if not video_data:
+            logging.warning("No video data found for the query: %s", query)
+            return f'There are no video data available for your request.'
+        
+        video_info = await gather_video_info(video_data)
+        if not video_info:
+            logging.warning("No video info retrieved.")
+            return f"Unable to retrieve video information."
+        
+        csv_filename = 'youtube_videos.csv'
+        save_message = save_to_csv(video_info, filename=csv_filename)
+        logging.info('Video data has been saved in %s', csv_filename)
+        print(save_message)
+
+        upload_message = upload_to_drive(csv_filename)
+        logging.info('File has been uploaded to Google Drive')
+        print(upload_message)
+
+    except Exception as e:
+        logging.exception('An error occurred during the main process: %s', e)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
