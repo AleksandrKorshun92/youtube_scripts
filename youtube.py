@@ -1,17 +1,17 @@
-""" Этот код представляет собой пример использования Python для взаимодействия с YouTube Data API
-и Google Drive API. Основная цель программы заключается в поиске видео на YouTube по заданному 
-ключевому слову, сборе информации о найденных видео и сохранении этих данных в CSV-файл.
-Кроме того, программа также может загружать данные в Google Диск при наличии соответствующих 
-прав доступа.
+""" 
+The script allows you to search for videos on YouTube according to a given 
+keyword, collects information and saves the data in a CSV file.
+There is also a function for uploading data to Google Drive if appropriate 
+access rights.
 
-Импортированные модули:
-- google.oauth2: Модуль для доступа к API Google работы с аутентификацией и авторизацией через протокол OAuth 2.0
-- googleapiclient: Модуль для взаимодействия с API Google.
-- asyncio: Асинхронная библиотека Python.
-- csv: Модуль для работы с файлами формата CSV (запись, чтение).
-- aiohttp: Библиотека для асинхронного HTTP-клиента (для отправки Api запросов)
-- requests: Модуль для для выполнения HTTP-запросов.
-- logging: Модуль для логирования. 
+Imported modules:
+- google.oauth2: Module for accessing the Google API for working with authentication and authorization via the OAuth 2.0 protocol
+- googleapiclient: A module for interacting with the Google API.
+- asyncio: Python asynchronous library.
+- csv: Module for working with CSV files (writing, reading).
+- aiohttp: Library for an asynchronous HTTP client (for sending Api requests)
+- requests: Module for making HTTP requests.
+- logging: Module for logging.
 """
 
 
@@ -25,17 +25,18 @@ import requests
 import logging
 
 
-# Настройки констант для YouTube Data API 
-YOUTUBE_API_KEY = 'our_youtube_api_key'  # заменить на Ваш API_KEY
+# Constant settings for YouTube Data API
+YOUTUBE_API_KEY = 'our_youtube_api_key'  # replace with your API_KEY
 YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
 VIDEO_URL = 'https://www.googleapis.com/youtube/v3/videos'
 
-# Настройки констант для Google Drive
-SERVICE_ACCOUNT_FILE = 'path/to/your/credentials.json'  # заменить на путь к файлу с данными 
+# Constant settings for Google Drive
+# SERVICE_ACCOUNT_FILE - replace with the path to the data file (downloaded Google account in json format)
+SERVICE_ACCOUNT_FILE = 'path/to/your/credentials.json'  # example with title - project_google_api.json
 SCOPES = ['https://www.googleapis.com/auth/drive.file'] 
 
 
-# Настройка логгирования. Данные хранятся в файле youtube.log с уровнем логирования INFO. 
+# Setting up logging. The data is stored in the youtube.log file with INFO logging level.
 logging.basicConfig(
     filename = 'youtube.log',  
     level = logging.INFO,  
@@ -44,16 +45,16 @@ logging.basicConfig(
 
 
 def search_youtube(query: str, maxResults: int = 50) -> dict:
-    """Функция ищет видео на YouTube по ключевому слову.
+    """The function searches YouTube videos by keyword.
     
-    :param query: ключевое слово для поиска видео.
-    :param maxResults: максимальное количество видео установлено по умолчанию 50.
-    :return: словарь с информацией о найденных видео.
+    :param query: keyword for video search.
+    :param maxResults: The maximum number of videos is set to 50 by default.
+    :return: dictionary with information about found videos.
     """
     
     logging.info(f'start search - {query}')
     
-    # основные параметр для получения ланных о видео
+    # basic parameters for receiving data about the video
     params = {
         'part': 'snippet',
         'q': query,
@@ -64,16 +65,25 @@ def search_youtube(query: str, maxResults: int = 50) -> dict:
     try: 
         response = requests.get(YOUTUBE_API_URL, params=params)
         return response.json()
+    except requests.exceptions.HTTPError as http_err:
+        logging.error("HTTP error occurred: %s", http_err)
+    except requests.exceptions.ConnectionError as conn_err:
+        logging.error("Connection error occurred: %s", conn_err)
+    except requests.exceptions.Timeout as timeout_err:
+        logging.error("Request timed out: %s", timeout_err)
+    except requests.exceptions.RequestException as req_err:
+        logging.error("An error occurred: %s", req_err)
     except Exception as e:
-        logging.exception("Error executing request: %s", e)
-        return {}
+        logging.exception("An unexpected error occurred: %s", e)
+        
+    return {}
 
 
 async def fetch_video_details(video_id: str) -> dict:
-    """Асинкронная функция, которая получает детали видео по его ID.
+    """An asynchronous function that gets video details by its ID.
     
-    :param video_id: id видео для получения данных по данному видео.
-    :return: словарь с расширенной информацией о видео.
+    :param video_id: video id for obtaining data for this video.
+    :return: dictionary with extended information about the video.
     """
     
     logging.info(f'start function fetch_video_details')

@@ -111,3 +111,101 @@
 2024-11-08 15:09:55,631 - INFO - upload_to_drive in Google Drive - youtube_videos.csv
 2024-11-08 15:09:55,637 - INFO - file_cache is only supported with oauth2client<4.0.0
 2024-11-08 15:09:58,875 - INFO - File is saved in Google Drive
+2024-11-13 20:04:38,004 - INFO - start search - видосы
+2024-11-13 20:06:47,883 - INFO - start search - обучение python
+2024-11-13 20:07:51,670 - INFO - start search - обучение python
+2024-11-13 20:08:07,934 - INFO - start search - жижа
+2024-11-13 20:08:37,260 - INFO - start search - собаки
+2024-11-13 20:15:48,179 - INFO - start search - ss
+2024-11-13 20:15:48,832 - INFO - start gather_video_info
+2024-11-13 20:15:48,833 - INFO - start function fetch_video_details
+2024-11-13 20:15:48,833 - ERROR - error when searching and writing data: no running event loop
+2024-11-13 20:17:26,909 - INFO - start search - мстители
+2024-11-13 20:17:27,751 - INFO - start gather_video_info
+2024-11-13 20:17:27,751 - INFO - start function fetch_video_details
+2024-11-13 20:17:27,751 - ERROR - error when searching and writing data: no running event loop
+2024-11-13 20:17:31,597 - INFO - start search - мстители
+2024-11-13 20:17:32,171 - INFO - start gather_video_info
+2024-11-13 20:17:32,171 - INFO - start function fetch_video_details
+2024-11-13 20:17:32,172 - ERROR - error when searching and writing data: no running event loop
+2024-11-14 06:40:56,566 - INFO - start search - открыть бизнес
+2024-11-14 06:41:06,623 - ERROR - Error executing request: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /youtube/v3/search?part=snippet&q=%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C+%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81&type=video&key=AIzaSyBqT8Cx2aOgR78S_RmUhtk5GOPVJ38_T7o&maxResults=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x75b81484ec50>: Failed to resolve 'www.googleapis.com' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connection.py", line 199, in _new_conn
+    sock = connection.create_connection(
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connection.py", line 693, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connection.py", line 206, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x75b81484ec50>: Failed to resolve 'www.googleapis.com' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /youtube/v3/search?part=snippet&q=%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C+%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81&type=video&key=AIzaSyBqT8Cx2aOgR78S_RmUhtk5GOPVJ38_T7o&maxResults=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x75b81484ec50>: Failed to resolve 'www.googleapis.com' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/test.py", line 56, in search_youtube
+    response = requests.get(YOUTUBE_API_URL, params=params)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/aleksander/Рабочий стол/саморазвитие/собеседование/scripts/venv/lib/python3.10/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /youtube/v3/search?part=snippet&q=%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C+%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81&type=video&key=AIzaSyBqT8Cx2aOgR78S_RmUhtk5GOPVJ38_T7o&maxResults=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x75b81484ec50>: Failed to resolve 'www.googleapis.com' ([Errno -3] Temporary failure in name resolution)"))
+2024-11-14 06:43:54,170 - INFO - start search - отркыть
+2024-11-14 06:43:55,786 - INFO - start gather_video_info
+2024-11-14 06:43:55,787 - INFO - start function fetch_video_details
+2024-11-14 06:43:55,787 - ERROR - error when searching and writing data: no running event loop
+2024-11-14 06:45:22,601 - INFO - start search - мстители
+2024-11-14 06:45:23,349 - INFO - start gather_video_info
+2024-11-14 06:45:23,349 - INFO - start function fetch_video_details
+2024-11-14 06:45:23,350 - ERROR - error when searching and writing data: no running event loop
+2024-11-14 06:51:59,790 - INFO - start search - мстители
+2024-11-14 06:52:00,513 - INFO - start gather_video_info
+2024-11-14 06:52:00,514 - INFO - start function fetch_video_details
+2024-11-14 06:53:23,754 - INFO - start search - мстители
+2024-11-14 06:53:27,959 - INFO - start gather_video_info
+2024-11-14 06:53:27,959 - INFO - start function fetch_video_details
+2024-11-14 07:17:30,242 - INFO - start search - кино
+2024-11-14 07:17:30,920 - INFO - start gather_video_info
+2024-11-14 07:17:30,921 - INFO - start function fetch_video_details
+2024-11-14 07:19:05,991 - INFO - start search - ssss
+2024-11-14 07:19:06,588 - INFO - start gather_video_info
+2024-11-14 07:19:06,588 - INFO - start function fetch_video_details
+2024-11-14 07:25:36,788 - INFO - start search - мстители
+2024-11-14 07:25:37,572 - INFO - start gather_video_info
+2024-11-14 07:25:37,572 - INFO - start function fetch_video_details
+2024-11-14 14:09:14,952 - INFO - start search - мстители
+2024-11-14 14:09:16,053 - INFO - start gather_video_info
+2024-11-14 14:09:16,053 - INFO - start function fetch_video_details
