@@ -12,17 +12,20 @@ Imported modules:
 - aiohttp: Library for an asynchronous HTTP client (for sending Api requests)
 - requests: Module for making HTTP requests.
 - logging: Module for logging.
+- os: Module for working with files.
 """
 
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+from googleapiclient.errors import HttpError
 import asyncio
 import csv
 import aiohttp
 import requests
 import logging
+import os
 
 
 # Constant settings for YouTube Data API
@@ -74,8 +77,7 @@ def search_youtube(query: str, maxResults: int = 50) -> dict:
     except requests.exceptions.RequestException as req_err:
         logging.error("An error occurred: %s", req_err)
     except Exception as e:
-        logging.exception("An unexpected error occurred: %s", e)
-        
+        logging.exception("An unexpected error occurred: %s", e)     
     return {}
 
 
@@ -92,86 +94,137 @@ async def fetch_video_details(video_id: str) -> dict:
         async with aiohttp.ClientSession() as session:
             async with session.get(video_details_url) as response:
                 return await response.json()
-    except aiohttp.ClientError as e:
-        logging.error(f"Error executing request: {e}")
-        return {}
+    except aiohttp.ClientResponseError as http_err:
+        logging.error("HTTP error occurred: %s", http_err)
+    except aiohttp.ClientConnectionError as conn_err:
+        logging.error("Connection error occurred: %s", conn_err)
+    except aiohttp.ClientTimeout as timeout_err:
+        logging.error("Request timed out: %s", timeout_err)
+    except aiohttp.ClientError as client_err:
+        logging.error("A client error occurred: %s", client_err)
+    except Exception as e:
+        logging.exception("An unexpected error occurred: %s", e)
+    
+    return {}
 
 
 async def gather_video_info(video_data: dict) -> dict:
-    """Асинкронная функция которая собирает информацию о каждом видео для дальнейшей записи.
-    В цикле прохлдит по каждому видео, находит id и через функцию fetch_video_details получает
-    расширинные данные необходимые для дальнейшей записи (обработки)
+    """An asynchronous function that collects information about each video for further recording.
+    It loops through each video, finds the id and gets it through the fetch_video_details function
+    extended data necessary for further recording (processing)
     
-    :param video_data: словарь найденных видео
-    :return: словарь с расширенной информацией о видео.
+    :param video_data: dictionary of found videos
+    :return: dictionary with extended information about the video.
     """
-    logging.info('start gather_video_info')
+    logging.info('Start gather_video_info')
     
     tasks = []
-    for item in video_data['items']:
-        video_id = item['id']['videoId']
-        tasks.append(fetch_video_details(video_id))
+    for item in video_data.get('items', []):
+        video_id = item.get('id', {}).get('videoId')
+        if video_id:
+            tasks.append(fetch_video_details(video_id))
+        else:
+            logging.warning("No video ID found for item: %s", item)
+
     try:
-        video_details = await asyncio.gather(*tasks)
-        return video_details
+        video_details = await asyncio.gather(*tasks, return_exceptions=True)
+        # Filter out any exceptions and log them
+        for detail in video_details:
+            if isinstance(detail, Exception):
+                logging.error("Error fetching video details: %s", detail)
+        return {video['id']: detail for video, detail in zip(video_data['items'], video_details) if not isinstance(detail, Exception)}
+
     except Exception as e:
-        logging.error(f"Error executing request: {e}")
+        logging.error("An unexpected error occurred: %s", e)
         return {}
 
 
 def save_to_csv(video_details: dict, filename: str) -> str:
-    """Сохраняет информацию о видео в CSV файл.
+    """ Saves video information to a CSV file.
     
-    :param video_details: словарь данных о видео
-    :param filename: названия файла, куда будет сохранятся информация
-    :return: информацию, что данные сохранены в файл.
+    :param video_details: video data dictionary
+    :param filename: name of the file where the information will be saved
+    :return: information that the data is saved to the file.
     """
-    logging.info(f'save_to_csv filename - {filename}') 
-    
-    # проверка на правильный формат для сохранения файла. Если формата нет или другой, 
-    # то будет изменен формат
-    if 'csv' not in filename.split('.'):
-        filename = filename + '.csv'
-    #открытие менеджера для записи с указанием кодировки utf-8.
-    with open(filename, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Title (Название видео)', 
-                         'Channel (Название канала)',
-                         'Views (Количество просмотров)', 
-                         'Likes (Количество лайков)', 
-                         'Comments (Количество комментариев)'])
-        for details in video_details:
-            if details['items']:
-                snippet = details['items'][0]['snippet']
-                statistics = details['items'][0]['statistics']
-                writer.writerow([
-                    snippet['title'],
-                    snippet['channelTitle'],
-                    statistics.get('viewCount', 0),
-                    statistics.get('likeCount', 0),
-                    statistics.get('commentCount', 0)
-                ])
-    return f'Данные о видео сохранены в {filename}'
+    logging.info(f'save_to_csv filename - {filename}')
+
+    # Checks for the correct format to save the file.
+    if not filename.endswith('.csv'):
+        filename += '.csv'
+
+    try:
+        # Opening a manager for a record indicating the utf-8 encoding
+        with open(filename, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Title (Название видео)', 
+                             'Channel (Название канала)',
+                             'Views (Количество просмотров)', 
+                             'Likes (Количество лайков)', 
+                             'Comments (Количество комментариев)'])
+            
+            # Checking for data in video_details
+            if not isinstance(video_details, list) or not video_details:
+                logging.warning("No video details provided or video_details is not a list.")
+                return f'No video data to save in {filename}.'
+
+            for details in video_details:
+                if 'items' in details and details['items']:
+                    snippet = details['items'][0].get('snippet', {})
+                    statistics = details['items'][0].get('statistics', {})
+                    writer.writerow([
+                        snippet.get('title', 'N/A'),  # We use N/A if there is no data
+                        snippet.get('channelTitle', 'N/A'),
+                        statistics.get('viewCount', 0),
+                        statistics.get('likeCount', 0),
+                        statistics.get('commentCount', 0)
+                    ])
+    except (IOError, OSError) as file_err:
+        logging.error(f"Error writing to file {filename}: {file_err}")
+        return f"Error saving data to {filename}"
+    except Exception as e:
+        logging.exception("An unexpected error occurred while saving to CSV.")
+        return "An unexpected error occurred when saving the data."
+
+    return f'Video data is saved in {filename}'
 
 
 
 def upload_to_drive(filename: csv) -> str:
-    """Загружает файл в c данными о видео в Google Drive.
+    """Uploads a file with video data to Google Drive.
     
-    :param filename: названия файла, который необходимо сохранить в Google Drive
-    :return: информацию, что данные сохранены в файл.
+    :param filename: name of the file to be saved to Google Drive
+    :return: information that the data is saved to the file.
     """
     
-    logging.info(f'upload_to_drive in Google Drive - {filename}')
+    logging.info(f'Uploading to Google Drive: {filename}')
     
-    creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-    service = build('drive', 'v3', credentials=creds)
+    # Checking for file existence
+    if not os.path.isfile(filename):
+        logging.error(f'File not found: {filename}')
+        return f'Error: File not found - {filename}'
     
-    file_metadata = {'name': filename}
-    media = MediaFileUpload(filename, mimetype='text/csv')
-    file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-    return f'Файл загружен в Google Drive с ID: {file.get("id")}'
+    try:
+        creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        service = build('drive', 'v3', credentials=creds)
+        
+        file_metadata = {'name': os.path.basename(filename)}  # We only get the file name
+        media = MediaFileUpload(filename, mimetype='text/csv')
+        
+        # Making a file download request
+        file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+        logging.info(f'File uploaded successfully with ID: {file.get("id")}')
+        
+        return f'The file is uploaded to Google Drive with ID: {file.get("id")}'
+    
+    except FileNotFoundError as fnf_error:
+        logging.error(f'File not found: {fnf_error}')
+        return f'Error: File not found - {fnf_error}'
+    except HttpError as http_err:
+        logging.error(f'An HTTP error occurred: {http_err}')
+        return f'Error: HTTP error occurred - {http_err}'
+    except Exception as e:
+        logging.exception('An unexpected error occurred while uploading to Google Drive.')
+        return 'An unexpected error occurred while uploading the file to Google Drive.'
 
 
 async def main():
